@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Js</title>
+</head>
+<body>
+	
+<script>
+
+	var lastName = prompt( 'Введите фамилию: ' );
+	while ( ( lastName === null ) || ( lastName === "") ) {
+		lastName = prompt ('Фамилия введена некорректно. Повторите попытку ');
+	}	
+	
+	var firstName = prompt( 'Введите имя: ' );
+	while ( ( firstName === null ) || ( firstName === "") ) {
+		firstName = prompt ('Имя введено некорректно. Повторите попытку ');
+	}	
+
+	var middleName = prompt( 'Введите отчество: ' );
+	while ( ( middleName === null ) || ( middleName === "") ) {
+		middleName = prompt ('Отчество введено некорректно. Повторите попытку ');
+	}	
+
+	do {
+		var ageStr = prompt( 'Ваш возраст ' );
+		var age = parseInt(ageStr);
+		if (isNaN (age) )
+			age = alert( 'Возраст введен некорректно!\nВведите число используя символы 0-9');
+	} while ( isNaN (age));
+	
+	var gender = confirm('Если Вы мужчина - нажмите \"Ок\". Если Вы женщина - нажмите \"Отмета\"');
+	var pensionAge;
+	if (gender){
+		gender = 'мужской';
+		pensionAge = 62;
+	}
+	else {
+		gender ='женский';
+		pensionAge = 57;
+	}
+
+	var pension;
+	if (age >= pensionAge)
+		pension = 'Да'
+	else
+		pension = 'Нет'
+	
+	alert(`Ваше ФИО: ${lastName} ${firstName} ${middleName}
+Ваш возраст в годах: ${age}
+Ваш возраст в днях: ${age*365}
+Через 5 лет вам будет: ${age+5}
+Ваш пол: ${gender}
+Вы на пенсии: ${pension}`)
+
+</script>
+
+</body>
+</html>

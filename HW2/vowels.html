@@ -10,25 +10,16 @@
 		"use strict";
 
 		let txtStr = prompt('Введите произвольный текст: ');
-		
 
 		function vowels(str){
 			let arrayStr = str.split('');
+			let vowelsLetters = { А:'true', а:'true', Е:'true', е:'true', Ё:'true', ё:'true', И:'true', и:'true', О:'true', о:'true', У:'true', у:'true', Ы:'true', ы:'true', Э:'true', э:'true', Ю:'true', ю:'true', Я:'true', я:'true' };
 			let counter = 0;
 
 			for ( let i = 0; i < arrayStr.length; i++){
 				let letter = arrayStr[i];
-				if ( (letter === 'А') || (letter === 'а') || 
-					(letter === 'Е') || (letter === 'е') || 
-					(letter === 'Ё') || (letter === 'ё') || 
-					(letter === 'И') || (letter === 'и') || 
-					(letter === 'О') || (letter === 'о') || 
-					(letter === 'У') || (letter === 'у') || 
-					(letter === 'Ы') || (letter === 'ы') || 
-					(letter === 'Э') || (letter === 'э') || 
-					(letter === 'Ю') || (letter === 'ю') || 
-					(letter === 'Я') || (letter === 'я') )
-				counter += 1;
+				if ( letter in vowelsLetters )
+					counter += 1;
 			}
 			return counter;
 		}

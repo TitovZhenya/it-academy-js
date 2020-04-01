@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>vowels</title>
+</head>
+<body>
+
+	<script>
+		"use strict";
+
+		let txtStr = prompt('Введите произвольный текст: ');
+		
+
+		function vowels(str){
+			let arrayStr = str.split('');
+			let counter = 0;
+
+			for ( let i = 0; i < arrayStr.length; i++){
+				let letter = arrayStr[i];
+				if ( (letter === 'А') || (letter === 'а') || 
+					(letter === 'Е') || (letter === 'е') || 
+					(letter === 'Ё') || (letter === 'ё') || 
+					(letter === 'И') || (letter === 'и') || 
+					(letter === 'О') || (letter === 'о') || 
+					(letter === 'У') || (letter === 'у') || 
+					(letter === 'Ы') || (letter === 'ы') || 
+					(letter === 'Э') || (letter === 'э') || 
+					(letter === 'Ю') || (letter === 'ю') || 
+					(letter === 'Я') || (letter === 'я') )
+				counter += 1;
+			}
+			return counter;
+		}
+
+		console.log( vowels(txtStr) );
+	</script>
+
+</body>
+</html>

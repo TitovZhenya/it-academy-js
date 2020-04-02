@@ -6,34 +6,41 @@
 </head>
 <body>
 	
-<script>
+	<script>
 
-"use strict";
+		"use strict";
 
-var str = prompt( 'Введите текст: ' );
+		var reviewTxt = prompt( 'Напишите Ваш отзыв: ' );
 
-console.log(str);
+		console.log(reviewTxt);
 
-let strBegin = 0;
-let strEnd = str.length;
+		function spaceDelete(str){
 
-for ( let i = 0; i < str.length; i++){
-	if ( str[i] === ' ')
-		strBegin += 1;
-	else
-		break
-}
+			let strBegin = 0;
+			let strEnd = str.length;
 
-for ( let a = str.length - 1; a != 0; a--){
-	if ( str[a] === ' ')
-		strEnd--
-	else
-		break
-}
+			for ( let i = 0; i < str.length; i++){
+				if ( str[i] === ' ')
+					strBegin += 1;
+				else
+					break
+			}
 
-console.log('$' + str.slice(strBegin, strEnd) + '$');
+			for ( let a = str.length - 1; a != 0; a--){
+				if ( str[a] === ' ')
+					strEnd--
+				else
+					break
+			}
+			
+			let newStr = str.slice(strBegin, strEnd);
 
-</script>
+			return newStr
+		}
+
+		console.log('$' + spaceDelete(reviewTxt) + '$');
+
+	</script>
 
 </body>
 </html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Js</title>
+</head>
+<body>
+	
+<script>
+
+"use strict";
+
+var str = prompt( 'Введите текст: ' );
+
+console.log(str);
+
+let strBegin = 0;
+let strEnd = str.length;
+
+for ( let i = 0; i < str.length; i++){
+	if ( str[i] === ' ')
+		strBegin += 1;
+	else
+		break
+}
+
+for ( let a = str.length - 1; a != 0; a--){
+	if ( str[a] === ' ')
+		strEnd--
+	else
+		break
+}
+
+console.log('$' + str.slice(strBegin, strEnd) + '$');
+
+</script>
+
+</body>
+</html>

@@ -12,30 +12,37 @@
 
 		var reviewTxt = prompt( 'Напишите Ваш отзыв: ' );
 
-		console.log(reviewTxt);
-
 		function spaceDelete(str){
 
 			let strBegin = 0;
 			let strEnd = str.length;
+			let newStr;
 
 			for ( let i = 0; i < str.length; i++){
 				if ( str[i] === ' ')
 					strBegin += 1;
 				else
-					break
+					break;
 			}
 
-			for ( let a = str.length - 1; a != 0; a--){
+			if ( strBegin === str.length ){
+				newStr = '';
+				return newStr;
+			}			
+
+			for ( let a = str.length - 1; a >= 0; a--){
 				if ( str[a] === ' ')
-					strEnd--
+					strEnd--;
 				else
-					break
+					break;
 			}
 			
-			let newStr = str.slice(strBegin, strEnd);
+			if ( strBegin === 0 && strEnd === str.length - 1 ){
+				return str;
+			}
 
-			return newStr
+			newStr = str.slice(strBegin, strEnd);
+			return newStr;
 		}
 
 		console.log('$' + spaceDelete(reviewTxt) + '$');

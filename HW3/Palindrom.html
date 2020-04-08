@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Palindrome</title>
+</head>
+<body>
+
+	<script>
+
+    "use strict";
+
+    let palindromeTxt = prompt( 'Введите текст: ' );
+
+    function palindrome( str ){
+        str = str.toLowerCase().replace(/[^а-дж-щыэ-яa-z]/g,'');
+        let middleTxt = Math.floor( str.length / 2);
+
+        for ( let i = 0; i < middleTxt; i++){
+
+            if ( str[i] !== str [str.length - 1 - i] )
+                return console.log ('Не палиндром');
+        return console.log ('Палиндром');
+        }
+   }
+
+   palindrome(palindromeTxt);
+    </script>
+	
+</body>
+</html>

@@ -13,8 +13,9 @@
     let palindromeTxt = prompt( 'Введите текст: ' );
 
     function palindrome( str ){
-        str = str.toLowerCase().replace(/[^а-яa-z]/g,'').replace(/[е]/g,'ё').replace(/[ъ]/g,'ь');
+        str = str.toLowerCase().replace(/[^а-яёa-z]/g,'').replace(/ё/g,"е").replace(/ъ/g,'ь');
         let middleTxt = Math.floor( str.length / 2);
+        console.log(str)
 
         for ( let i = 0; i < middleTxt; i++){
 

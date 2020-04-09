@@ -10,24 +10,24 @@
 
         "use strict";
 
-         function noSpaceLetters(strCleaning){
+         function recursionPalindrome(strCleaning){
             let clearStr = strCleaning.toLowerCase().replace(/[^а-щыэ-яёa-z]/g,'').replace(/ё/g,"е");
 
-            function recPalindrome(){
+            function palindrome(){
                 if (clearStr.length <= 1)
                     return true;
                 if ( clearStr.substr(0, 1) !== clearStr.substr(clearStr.length-1, 1) )
                     return false;
                 clearStr = clearStr.substr(1, clearStr.length-2);
-                return recPalindrome();
+                return palindrome();
             }
 
-            console.log(recPalindrome());
+            console.log(palindrome());
         }
 
         let strTxt = prompt( 'Введите текст: ' );
        
-        noSpaceLetters(strTxt);
+        recursionPalindrome(strTxt);
        
     </script>
 	

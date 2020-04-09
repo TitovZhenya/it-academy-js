@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Palindrome</title>
+</head>
+<body>
+
+    <script>
+
+        "use strict";
+
+        let palindromeTxt = prompt( 'Введите текст: ' );
+
+        function noSpaceLetters(strCleaning){
+            strCleaning = strCleaning.toLowerCase().replace(/[^а-щыэ-яёa-z]/g,'').replace(/ё/g,"е");
+            return strCleaning; 
+        }
+
+        function recPalindrome(strPal){
+            if (strPal.length <= 1)
+                return true;
+            else if ( strPal.substr(0, 1) !== strPal.substr(strPal.length-1, 1) )
+                return false;
+            else 
+                return recPalindrome(strPal.substr(1, strPal.length-2));
+        }
+
+        let clearTxt = noSpaceLetters(palindromeTxt);
+
+        console.log(recPalindrome(clearTxt));
+       
+    </script>
+	
+</body>
+</html>

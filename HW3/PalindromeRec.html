@@ -13,21 +13,22 @@
          function recursionPalindrome(strCleaning){
             let clearStr = strCleaning.toLowerCase().replace(/[^а-щыэ-яёa-z]/g,'').replace(/ё/g,"е");
 
-            function palindrome(){
-                if (clearStr.length <= 1)
+            function palindrome(str){
+                if (str.length <= 1)
                     return true;
-                if ( clearStr.substr(0, 1) !== clearStr.substr(clearStr.length-1, 1) )
+                if ( str.substr(0, 1) !== str.substr(str.length-1, 1) )
                     return false;
-                clearStr = clearStr.substr(1, clearStr.length-2);
-                return palindrome();
+                str = str.substr(1, str.length-2);
+                return palindrome(str);
             }
 
-            console.log(palindrome());
+            return palindrome(clearStr);
         }
 
         let strTxt = prompt( 'Введите текст: ' );
+
+        console.log(recursionPalindrome(strTxt));
        
-        recursionPalindrome(strTxt);
        
     </script>
 	

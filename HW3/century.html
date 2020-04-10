@@ -11,13 +11,13 @@
         "use strict";
 
         function yearToCentury(year){
-        	let yearInt = parseInt(year);
         	return Math.floor( ( yearInt-1 ) / 100 ) + 1;   
         }
 
         let userNumb = prompt( 'Введите год: ' );
-       
-        console.log(yearToCentury(userNumb) + ' век');
+        let yearInt = parseInt(userNumb);
+
+        console.log(yearToCentury(yearInt) + ' век');
        
     </script>
 	

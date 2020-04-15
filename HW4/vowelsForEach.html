@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>For Each</title>
+</head>
+<body>
+
+    <script>
+
+        "use strict";
+
+         function vowelsForEach(str){
+            let arrayStr = str.toLowerCase().split('');
+            let vowelsLetters = { а:'true', е:'true', ё:'true', и:'true', о:'true', у:'true', ы:'true', э:'true', ю:'true', я:'true' };
+            let counter = 0;
+
+            function vowels(a){
+                if ( a in vowelsLetters )
+                    counter++;
+            }
+
+            arrayStr.forEach(vowels);
+            return counter;
+        }
+
+        let txtStr = prompt('Введите произвольный текст: ');
+        console.log( vowelsForEach(txtStr) );       
+       
+    </script>
+	
+</body>
+</html>

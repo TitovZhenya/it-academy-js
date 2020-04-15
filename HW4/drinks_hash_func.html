@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Drink Hash</title>
+</head>
+<body>
+
+	<script>
+
+		"use strict";
+
+		function HashStorageFunc(){
+			let self = this;
+			let memory = {};
+			
+			self.addValue = function(key,value){
+				memory[key] = value;
+			}
+
+			self.getValue = function(key){
+				return memory[key];
+			}
+
+			self.deleteValue = function(key){
+				if (key in memory){
+					delete memory[key];
+					return true;
+				}
+				else
+					return false;
+			}
+
+			self.getKeys = function(){
+				return Object.keys(memory);
+			}
+		}
+			
+		let drinkStorage = new HashStorageFunc()
+
+
+	</script>
+	
+</body>
+</html>

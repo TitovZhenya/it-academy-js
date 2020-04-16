@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Drink Hash</title>
+	<style>
+		input{
+			display: block;
+			margin-bottom: 10px;
+			font: 15px sans-serif;
+		}
+	</style>
+</head>
+<body>
+
+	<div>
+		<input type="button" value="ввод информации о напитке" onclick='addDrinkInfo()'>
+		<input type="button" value="получение информации о напитке" onclick='getDrinkInfo()'>
+		<input type="button" value="удаление информации о напитке" onclick='deleteDrinkInfo()'>
+		<input type="button" value="перечень всех напитков" onclick='getDrinkList()'>
+	</div>
+
+	<script>
+
+		"use strict";
+
+		class HashStorageFunc{
+			constructor(){
+				this.memory={};
+			}			
+			
+			addValue(key,value){
+				this.memory[key] = value;
+			}
+
+			getValue(key){
+				return this.memory[key];
+			}
+
+			deleteValue(key){
+				if (key in this.memory){
+					delete this.memory[key];
+					return true;
+				}
+				else
+					return false;
+			}
+
+			getKeys(){
+				return Object.keys(this.memory);
+			}
+		}
+			
+		let drinkStorage = new HashStorageFunc();
+
+		function addDrinkInfo(){
+			let drink = prompt('Введите название напитка: ');
+			let alcho = confirm('Напиток алкогольнай?');
+			let recipe = prompt('Введите рецепт напитка: ');
+
+			drinkStorage.addValue(drink,{alcoholic: alcho, description: recipe});
+		}
+
+		function getDrinkInfo(){
+			let drink = prompt('Введите название напитка: ');
+			let drinkValue = drinkStorage.getValue(drink);
+			
+			if (drinkValue !== undefined){
+				alert ('Напиток: ' + drink + 
+					'\nАлкогольный: ' + (drinkValue.alcoholic?'да':'нет') +
+					'\nРецепт приготовления: ' + drinkValue.description);
+			}
+			else
+				alert('Такого напитка нету в списке!');
+		}
+
+		function deleteDrinkInfo(){
+			let drink = prompt('Введите название напитка: ');
+			let drinkDelete = drinkStorage.deleteValue(drink);
+
+			alert(drinkDelete?'Напиток удален из спика.':'Такого напитка нету в списке.');
+		}
+
+		function getDrinkList(){
+			alert(drinkStorage.getKeys());
+		}
+
+	</script>
+	
+</body>
+</html>

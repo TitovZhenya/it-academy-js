@@ -16,7 +16,7 @@
             function palindrome(str){
                 if (str.length <= 1)
                     return true;
-                if ( str.substr(0, 1) !== str.substr(str.length-1, 1) )
+                if ( str[0] !== str[str.length-1] )
                     return false;
                 str = str.substr(1, str.length-2);
                 return palindrome(str);

@@ -8,30 +8,23 @@
 
 	<script>
 		function buildWrapper(tag){
-			if (tag==="P"){
-				return function buildStr(txt){
-					txt = txt.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-					let newStr = '<'+tag+'>'+txt+'</'+tag+'>';
-
-					return newStr;
-				}
+			function replacer(text){
+				text = text.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+				return text;
 			}
 
-			if (tag==="H1"){
-				return function buildStr(txt, style){
-					let style1 = Object.keys(style)[0];
-					let style2 = Object.keys(style)[1];
-					let property1 = style[style1];
-					let property2 = style[style2];
-
-					txt = txt.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-					property1 = property1.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-					property2 = property2.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
-					let newStr = "<"+tag+' '+style1+"=\'"+property1+"\' "+style2+"=\'"+property2+"\'>"+txt+"</"+tag+">";
-
-					return newStr;
+			return function buildStr(content, style) {
+				let newStr = "<"+tag;
+				if (style!==undefined){
+					let styleKeys = Object.keys(style);
+					for (let i=0; i<styleKeys.length; i++){
+						newStr+=" "+styleKeys[i]+"=\'"+replacer(style[styleKeys[i]])+"\'";
+					}
 				}
+				else
+					return newStr += '>'+replacer(content)+'</'+tag+'>';
+
+				return newStr += ">"+replacer(content)+"</"+tag+">";
 			}
 		}
 	

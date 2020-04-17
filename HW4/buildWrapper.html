@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>buildWrapper</title>
+</head>
+<body>
+
+	<script>
+		function buildWrapper(tag){
+			if (tag==="P"){
+				return function buildStr(txt){
+					txt = txt.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+					let newStr = '<P>'+txt+'</P>';
+
+					return newStr;
+				}
+			}
+
+			if (tag==="H1"){
+
+			}
+		}
+
+		let userTxt = prompt('Введите текст: ');
+
+		let wrapP=buildWrapper('P'); 
+		console.log(wrapP(userTxt));
+	</script>
+	
+</body>
+</html>

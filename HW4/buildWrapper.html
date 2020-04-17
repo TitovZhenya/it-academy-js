@@ -11,21 +11,35 @@
 			if (tag==="P"){
 				return function buildStr(txt){
 					txt = txt.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-					let newStr = '<P>'+txt+'</P>';
+					let newStr = '<'+tag+'>'+txt+'</'+tag+'>';
 
 					return newStr;
 				}
 			}
 
 			if (tag==="H1"){
+				return function buildStr(txt, style){
+					let style1 = Object.keys(style)[0];
+					let style2 = Object.keys(style)[1];
+					let property1 = style[style1];
+					let property2 = style[style2];
 
+					txt = txt.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+					property1 = property1.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+					property2 = property2.replace(/&/g, '&amp;').replace(/"/g,'&quot;').replace(/'/g,'&apos;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+					let newStr = "<"+tag+' '+style1+"=\'"+property1+"\' "+style2+"=\'"+property2+"\'>"+txt+"</"+tag+">";
+
+					return newStr;
+				}
 			}
 		}
-
-		let userTxt = prompt('Введите текст: ');
-
+	
 		let wrapP=buildWrapper('P'); 
-		console.log(wrapP(userTxt));
+		console.log(wrapP("Однажды в <студёную> зимнюю пору"));
+
+		let wrapH1=buildWrapper("H1");
+		console.log( wrapH1("СТИХИ",{align:"center",title:"M&M's"}) );
 	</script>
 	
 </body>

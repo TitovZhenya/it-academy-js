@@ -10,6 +10,12 @@
 		"use strict";
 
 		function deepComp(elem1, elem2){
+			if (Array.isArray(elem1) && typeof(elem2)==="object" || Array.isArray(elem2) && typeof(elem1)==="object")
+			 	return false;
+			// Или так
+			// if (Array.isArray(elem1) && !Array.isArray(elem2) || Array.isArray(elem2) && !Array.isArray(elem1))
+			// 	return false;
+
 			if (elem1===elem2)
 				return true;
 
@@ -22,11 +28,8 @@
 			if (typeof(elem1) !== "object" || !Boolean(elem1) || !Boolean(elem2))
 				return elem1===elem2;
 
-			if (elem1.toString() !== elem2.toString())
-				return false;
-
-			// Или так
-			// if (Array.isArray(elem1) && !Array.isArray(elem2) || Array.isArray(elem2) && !Array.isArray(elem1))
+			// Тут можно найти ошибку
+			// if (elem1.toString() !== elem2.toString())
 			// 	return false;
 
 			if (Object.keys(elem1).length !== Object.keys(elem2).length)

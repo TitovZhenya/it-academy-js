@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Deep Comp</title>
+</head>
+<body>
+
+	<script>
+		"use strict";
+
+		function deepComp(elem1, elem2){
+			if (elem1===elem2)
+				return true;
+
+			if (typeof(elem1) !== typeof(elem2))
+				return false;
+
+			if (typeof(elem1)==="number" && typeof(elem2)==="number" && isNaN(elem1) && isNaN(elem2))
+				return true;
+
+			if ((typeof(elem1) !== "object" && typeof(elem2) !== "object") || !Boolean(elem1) || !Boolean(elem2))
+				return elem1===elem2;
+
+			if (Array.isArray(elem1) && Array.isArray(elem2))
+				return elem1.every(function(value, index){
+					return deepComp(value, elem2[index]);
+			})
+	
+			let keyElem1=Object.keys(elem1).sort();
+			let keyElem2=Object.keys(elem2).sort();
+
+			if (keyElem1.length !== keyElem2.length)
+				return false;
+
+			for (let i=0; i<keyElem1.length; i++)
+				if (keyElem1[i]!==keyElem2[i])
+					return false;
+
+			return keyElem1.every(function(value){
+				return deepComp(elem1[value], elem2[value]);
+			})
+		}
+
+		var H1={ a:5, b: { b1:6, b2:7 } };
+		var H2={ b: { b1:6, b2:7 }, a:5 };
+		var H3={ a:5, b: { b1:6 } };
+		var H4={ a:5, b: { b1:66, b2:7 } };
+		var H5={ a:5, b: { b1:6, b2:7, b3:8 } };
+		var H6={ a:null, b:undefined, c:Number.NaN };
+		var H7={ c:Number.NaN, b:undefined, a:null };
+		var H8={a:5,b:6};
+		var H9={c:5,d:6};
+		var H10={a:5};
+		var A1=[5,7];
+		var A2=[5,5,7];
+		var A3=[5,8,7];
+
+		console.log(deepComp(H1,H2)?'Пройден':'Не пройден'); 									// будет true
+		console.log(deepComp(H1,H3)?'Не пройден':'Пройден');									// будет false
+		console.log(deepComp(H1,H4)?'Не пройден':'Пройден'); 									// будет false
+		console.log(deepComp(H1,H5)?'Не пройден':'Пройден'); 									// будет false
+		console.log(deepComp(H6,H7)?'Пройден':'Не пройден'); 									// будет true
+		console.log(deepComp(H8,H9)?'Не пройден':'Пройден'); 									// будет false
+		console.log(deepComp(H8,H10)?'Не пройден':'Пройден'); 									// будет false
+		console.log(deepComp(null,H10)?'Не пройден':'Пройден'); 								// будет false
+		console.log(deepComp(H10,null)?'Не пройден':'Пройден'); 								// будет false
+		console.log(deepComp(null,null)?'Пройден':'Не пройден'); 								// будет true
+		console.log(deepComp(null,undefined)?'Не пройден':'Пройден'); 							// будет false
+		console.log(deepComp(5,"5")?'Не пройден':'Пройден'); 									// будет false
+		console.log(deepComp(5,H1)?'Не пройден':'Пройден'); 									// будет false
+		console.log(deepComp(A1,H1)?'Не пройден':'Пройден'); 									// будет false
+		console.log(deepComp(A2,A3)?'Не пройден':'Пройден');									// будет false
+		console.log(deepComp( {a:5,b:undefined}, {a:5,c:undefined} )?'Не пройден':'Пройден'); 	// будет false
+	</script>
+	
+</body>
+</html>

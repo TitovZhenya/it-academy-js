@@ -16,10 +16,10 @@
 			if (typeof(elem1) !== typeof(elem2))
 				return false;
 
-			if (typeof(elem1)==="number" && typeof(elem2)==="number" && isNaN(elem1))
+			if (typeof(elem1)==="number" && isNaN(elem1))
 				return true;
 
-			if ((typeof(elem1) !== "object" && typeof(elem2) !== "object") || !Boolean(elem1) || !Boolean(elem2))
+			if (typeof(elem1) !== "object" || !Boolean(elem1) || !Boolean(elem2))
 				return elem1===elem2;
 
 			if (elem1.toString() !== elem2.toString())
@@ -29,13 +29,13 @@
 			// if (Array.isArray(elem1) && !Array.isArray(elem2) || Array.isArray(elem2) && !Array.isArray(elem1))
 			// 	return false;
 
+			if (Object.keys(elem1).length !== Object.keys(elem2).length)
+				return false;
+
 			if (Array.isArray(elem1) && Array.isArray(elem2))
 				return elem1.every(function(value, index){
 					return deepComp(value, elem2[index]);
 			})
-
-			if (Object.keys(elem1).length !== Object.keys(elem2).length)
-				return false;
 
 			let keyElem1=Object.keys(elem1).sort();
 			let keyElem2=Object.keys(elem2).sort();

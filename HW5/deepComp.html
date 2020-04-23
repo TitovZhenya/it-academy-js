@@ -16,7 +16,7 @@
 			if (typeof(elem1) !== typeof(elem2))
 				return false;
 
-			if (typeof(elem1)==="number" && isNaN(elem1))
+			if (typeof(elem1)==="number" && isNaN(elem1) && isNaN(elem2))
 				return true;
 
 			if (typeof(elem1) !== "object" || !Boolean(elem1) || !Boolean(elem2))
@@ -80,6 +80,7 @@
 		console.log(deepComp(A2,A3)?'Не пройден':'Пройден');									// будет false
 		console.log(deepComp( {a:5,b:undefined}, {a:5,c:undefined} )?'Не пройден':'Пройден'); 	// будет false
 		console.log(deepComp([5,7],{0:5,1:7})?'Не пройден':'Пройден');							// будет false
+		console.log(deepComp(Number.NaN,5)?'Не пройден':'Пройден');								// будет false
 	</script>
 	
 </body>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>dynForm</title>
+	
+</head>
+<body>
+
+	<script>
+		var formDef1=
+					[
+					  {label:'Название сайта:',kind:'longtext',name:'sitename'},
+					  {label:'URL сайта:',kind:'longtext',name:'siteurl'},
+					  {label:'Посетителей в сутки:',kind:'number',name:'visitors'},
+					  {label:'E-mail для связи:',kind:'shorttext',name:'email'},
+					  {label:'Рубрика каталога:',kind:'combo',name:'division',
+					    variants:[{text:'здоровье',value:1},{text:'домашний уют',value:2},{text:'бытовая техника',value:3}]},
+					  {label:'Размещение:',kind:'radio',name:'payment',
+					    variants:[{text:'бесплатное',value:1},{text:'платное',value:2},{text:'VIP',value:3}]},
+					  {label:'Разрешить отзывы:',kind:'check',name:'votes'},
+					  {label:'Описание сайта:',kind:'memo',name:'description'},
+					  {caption:'Опубликовать',kind:'submit'},
+					];
+
+		var formDef2=
+					[
+					  {label:'Фамилия:',kind:'longtext',name:'lastname'},
+					  {label:'Имя:',kind:'longtext',name:'firstname'},
+					  {label:'Отчество:',kind:'longtext',name:'secondname'},
+					  {label:'Возраст:',kind:'number',name:'age'},
+					  {caption:'Зарегистрироваться',kind:'submit'},
+					];
+
+		    	"use strict";
+
+    	var testArr=
+                    [
+                        {label:'Название сайта:',kind:'longtext',name:'sitename'}
+                    ]
+
+        console.log(dynForm(formDef1));
+
+        function dynForm(formArr){
+        	let body = document.body;
+        	let formDiv = document.createElement('div');
+
+        	let testTxt = document.createTextNode('test');
+
+        	formDiv.appendChild(testTxt);
+        	body.appendChild(formDiv);
+
+        	for (let i=0; i<formArr.length; i++){
+        		let formArrKeys = Object.keys(formArr[i]);
+        		for (let a=0; a<formArrKeys.length; a++){
+        			if (formArrKeys[a]==='variants')
+        				continue;
+        			let formTag = document.createElement(formArrKeys[a]);
+        			formDiv.appendChild(formTag);
+        		}
+
+        		console.log(formArrKeys);
+        	}
+        }
+		
+
+	</script>
+
+</body>
+</html>

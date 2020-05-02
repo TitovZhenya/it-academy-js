@@ -6,8 +6,12 @@
 	
 </head>
 <body>
+        <form action="https://fe.it-academy.by/TestForm.php" id=form1></form>
+        <form action="https://fe.it-academy.by/TestForm.php" id=form2></form>
 
 	<script>
+		"use strict";
+
 		var formDef1=
 					[
 					  {label:'Название сайта:',kind:'longtext',name:'sitename'},
@@ -32,38 +36,105 @@
 					  {caption:'Зарегистрироваться',kind:'submit'},
 					];
 
-		    	"use strict";
+        let form1 = document.getElementById('form1');
+        let form2 = document.getElementById('form2');
+ 	
+        dynForm(formDef1, form1);
+        dynForm(formDef2, form2);
 
-    	var testArr=
-                    [
-                        {label:'Название сайта:',kind:'longtext',name:'sitename'}
-                    ]
+        function dynForm(formArr, form){   	
+        	form.style.cssText = 'margin-bottom: 30px';
+                formArr.forEach(currentElem => {
+                        if('label' in currentElem){
+                                let labelTag = document.createElement('label');
+                                let labelTxt = document.createTextNode(currentElem.label);
+                                labelTag.style.cssText = 'display: inline-block; width: 150px';
+                                labelTag.appendChild(labelTxt);
+                                form.appendChild(labelTag);
+                        }
 
-        console.log(dynForm(formDef1));
+                        if('caption' in currentElem){
+                                let submit = document.createElement('input')
+                                submit.type = 'submit';
+                                submit.value = currentElem.caption;
+                                form.appendChild(submit);                        
+                        }
 
-        function dynForm(formArr){
-        	let body = document.body;
-        	let formDiv = document.createElement('div');
+                        if(currentElem.kind === 'longtext'){
+                                let kindTag = document.createElement('input');
+                                kindTag.type = 'text';
+                                kindTag.style.width = '400px';
+                                kindTag.name = currentElem.name;
+                                form.appendChild(kindTag);
+                        }
 
-        	let testTxt = document.createTextNode('test');
+                        if(currentElem.kind === 'shorttext'){
+                                let kindTag = document.createElement('input');
+                                kindTag.type = 'text';
+                                kindTag.style.width = '200px';
+                                kindTag.name = currentElem.name;
+                                form.appendChild(kindTag);
+                        }
 
-        	formDiv.appendChild(testTxt);
-        	body.appendChild(formDiv);
+                        if(currentElem.kind === 'number'){
+                                let kindTag = document.createElement('input');
+                                kindTag.type = 'number';
+                                kindTag.style.width = '75px';
+                                kindTag.name = currentElem.name;
+                                form.appendChild(kindTag);                                
+                        }
 
-        	for (let i=0; i<formArr.length; i++){
-        		let formArrKeys = Object.keys(formArr[i]);
-        		for (let a=0; a<formArrKeys.length; a++){
-        			if (formArrKeys[a]==='variants')
-        				continue;
-        			let formTag = document.createElement(formArrKeys[a]);
-        			formDiv.appendChild(formTag);
-        		}
+                        if(currentElem.kind === 'check'){
+                                let kindTag = document.createElement('input');
+                                kindTag.type = 'checkbox';
+                                kindTag.name = currentElem.name;
+                                kindTag.checked = true;
+                                form.appendChild(kindTag);                                
+                        }
 
-        		console.log(formArrKeys);
-        	}
+                        if(currentElem.kind === 'memo'){
+                                let kindTag = document.createElement('textarea');
+                                kindTag.name = currentElem.name;
+                                kindTag.style.cssText = 'display: block; width: 550px; height: 70px'
+                                form.appendChild(kindTag);                                
+                        }
+
+                        if(currentElem.kind === 'combo'){
+                                let kindTag = document.createElement('select');
+                                kindTag.name = currentElem.name;
+                                form.appendChild(kindTag);
+
+                                currentElem.variants.forEach(elem =>{
+                                        let optionTag = document.createElement('option');
+                                        optionTag.value = elem.value;
+                                        let optionTxt = document.createTextNode(elem.text);
+                                        optionTag.appendChild(optionTxt);
+                                        kindTag.appendChild(optionTag);
+                                })
+
+                                kindTag.value='3';
+                        }
+
+                        if(currentElem.kind === 'radio'){
+                                currentElem.variants.forEach(elem =>{
+                                        let kindTag = document.createElement('input');
+                                        kindTag.name = currentElem.name;
+                                        kindTag.type = 'radio';
+                                        kindTag.value = elem.value;
+                                        
+                                        let inputTag = document.createElement('span');
+                                        let inputTxt = document.createTextNode(elem.text);
+
+                                        form.appendChild(kindTag);
+                                        inputTag.appendChild(inputTxt);
+                                        form.appendChild(inputTag);
+                                })
+                        }
+
+                        let brTag = document.createElement('br');
+                        form.appendChild(brTag);
+                })
         }
-		
-
 	</script>
 
 </body>

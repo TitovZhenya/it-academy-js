@@ -50,11 +50,6 @@
 					window.document.onmouseup = null;
 				})
 
-				currentImg.addEventListener('dragend', (EO) => {
-					EO = EO || window.event;
-					console.log('ya tyt');
-				})
-
 				function moveImg(EO){
 					EO = EO || window.event;
 					currentImg.style.top = (EO.pageY - coordinateY) + 'px';

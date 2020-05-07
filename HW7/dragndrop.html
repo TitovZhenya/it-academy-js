@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>dragndrop</title>
+</head>
+<body>
+
+		<img src="chicken.png" alt="smile">
+		<img src="smile.png" alt="smile">
+		<img src="chat.png" alt="smile">	
+
+	<script>
+		let imgArr = document.getElementsByTagName('img');
+		let coordinateX
+		let coordinateY
+
+		window.addEventListener('load', () => {
+			for(let i=0; i<imgArr.length; i++){
+				let imgPosition = imgArr[i].offsetLeft;
+				imgArr[i].style.cssText = 'left: ' + imgPosition + 'px';
+			}
+
+			for(let a=0; a<imgArr.length; a++)
+				imgArr[a].style.position = 'absolute';
+		})
+
+		for(let i=0; i<imgArr.length; i++){
+			let currentImg = imgArr[i];
+			currentImg.addEventListener('dragstart', (EO) => {
+				EO = EO || window.event;
+				coordinateX = EO.offsetX;
+				coordinateY = EO.offsetY;
+			})
+
+			currentImg.addEventListener('dragend', (EO) => {
+				EO = EO || window.event;
+				currentImg.style.top = (EO.pageY - coordinateY) + 'px'; 
+				currentImg.style.left = (EO.pageX - coordinateX) + 'px';
+			})
+
+			currentImg.addEventListener('drag', (EO) => {
+				EO = EO || window.event;
+				EO.preventDefault();
+			})
+
+			currentImg.addEventListener('mousedown', (EO) => {
+				currentImg.style.zIndex = '0';
+			})
+
+			currentImg.addEventListener('mousemove', (EO) => {
+				currentImg.style.zIndex = '10';
+
+			})
+
+
+			currentImg.addEventListener('mouseup', (EO) => {
+				EO = EO || window.event;
+				EO.preventDefault();
+				let currentZ = currentImg.style.zIndex;
+				if(currentZ === '10'){
+					currentImg.style.zIndex = '0';
+				}
+			})
+		}
+		
+	</script>
+	
+</body>
+</html>

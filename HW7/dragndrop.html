@@ -44,9 +44,15 @@
 
 				currentImg.addEventListener('mousemove', moveImg)
 	
-				currentImg.addEventListener('mouseup', (EO) => {
+				window.document.addEventListener('mouseup', (EO) => {
 					EO = EO || window.event;
 					currentImg.removeEventListener('mousemove', moveImg);
+					window.document.onmouseup = null;
+				})
+
+				currentImg.addEventListener('dragend', (EO) => {
+					EO = EO || window.event;
+					console.log('ya tyt');
 				})
 
 				function moveImg(EO){

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Valid Form</title>
+	<style>
+		label{
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		label>span{
+			display: inline-block;
+			width: 150px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="wrapper">
+		<form action="https://fe.it-academy.by/TestForm.php">
+			<label for="dev">
+				<span>Разработчики:</span>
+				<input type="text" id="dev" name="developers">
+			</label>
+			
+			<label for="siteName">
+				<span>Название сайта:</span>
+				<input type="text" id="siteName" name="site">
+			</label>
+
+			<label for="siteURL">
+				<span>URL сайта:</span>
+				<input type="text" id="siteURL" name="URL">
+			</label>
+
+			<label for="date">
+				<span>Дата запуска сайта:</span>
+				<input type="date" id="date" name="launchDate">
+			</label>
+
+			<label for="counter">
+				<span>Посетителей в сутки:</span>
+				<input type="number" id="counter" name="Users">
+			</label>
+
+			<label for="email">
+				<span>E-mail для связи:</span>
+				<input type="email" id="email" name="contact">
+			</label>
+
+			<label for="chooseCatalog">
+				<span>Рубрика каталога:</span>
+				<select name="catalog" id="chooseCatalog" value="3">
+					<option value="1">здоровье</option>
+					<option value="2">домашний уют</option>
+					<option value="3">бытовая техника</option>
+				</select>
+			</label>
+
+			<label>
+				<span>Размещение:</span>
+				<input type="radio">бесплатное
+				<input type="radio">платное
+				<input type="radio">VIP
+			</label>
+
+			<label for="check">
+				<span>Разрешить отзывы:</span>
+				<input type="checkbox" id="check" name="review">
+			</label>
+
+			<label for="text">
+				<textarea name="description" id="text" cols="50" rows="7"></textarea>
+			</label>
+
+			<label>
+				<input type="submit">
+			</label>
+
+		</form>
+	</div>	
+	
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</body>
+</html>

@@ -14,6 +14,7 @@
 		let imgArr = document.getElementsByTagName('img');
 		let coordinateX
 		let coordinateY
+		let lastZindex = 0;
 
 		window.addEventListener('load', () => {
 			for(let i=0; i<imgArr.length; i++){
@@ -39,6 +40,10 @@
 				EO = EO || window.event;
 				currentImg.style.top = (EO.pageY - coordinateY) + 'px'; 
 				currentImg.style.left = (EO.pageX - coordinateX) + 'px';
+			})
+
+			currentImg.addEventListener('mousedown', () => {
+				currentImg.style.zIndex = ++lastZindex;
 			})			
 		}
 		

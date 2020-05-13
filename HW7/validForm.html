@@ -4,14 +4,30 @@
 	<meta charset="UTF-8">
 	<title>Valid Form</title>
 	<style>
-		label{
-			display: block;
+		div{
 			margin-bottom: 5px;
 		}
 
-		label>span{
-			display: inline-block;
+		label{
+			display:inline-block;
 			width: 150px;
+		}
+
+		div:last-child label{
+			display: block
+		}
+
+		[for=text]{
+			display: block;
+		}
+
+		span{
+			color: red;
+			font: bold 15px sans-serif;
+		}
+
+		div#radioWrapper{
+			display: inline-block;
 		}
 	</style>
 </head>
@@ -19,68 +35,271 @@
 
 	<div class="wrapper">
 		<form action="https://fe.it-academy.by/TestForm.php" name="Info">
-			<label for="dev">
-				<span>Разработчики:</span>
-				<input type="text" id="dev" name="developers">
-			</label>
+			<div>
+				<label for="dev">Разработчики:</label>
+				<input type="text" id="dev" class="empty" name="developers">
+				<span id="devError"></span>
+			</div>
+
+			<div>
+				<label for="siteName">Название сайта:</label>
+				<input type="text" id="siteName" class="empty" name="site">
+				<span id="siteNameError"></span>
+			</div>
+
+			<div>
+				<label for="siteURL">URL сайта:</label>
+				<input type="text" id="siteURL" class="empty" name="URL">
+				<span id="siteURLError"></span>
+			</div>
 			
-			<label for="siteName">
-				<span>Название сайта:</span>
-				<input type="text" id="siteName" name="site">
-			</label>
+			<div>
+				<label for="date">Дата запуска сайта:</label>
+				<input type="date" id="date" class="empty" name="launchDate">
+				<span id="dateError"></span>
+			</div>
 
-			<label for="siteURL">
-				<span>URL сайта:</span>
-				<input type="text" id="siteURL" name="URL">
-			</label>
+			<div>
+				<label for="counter">Посетителей в сутки:</label>
+				<input type="number" id="counter" class="empty" name="users">
+				<span id="counterError"></span>
+			</div>
 
-			<label for="date">
-				<span>Дата запуска сайта:</span>
-				<input type="date" id="date" name="launchDate">
-			</label>
+			<div>
+				<label for="email">E-mail для связи:</label>
+				<input type="email" id="email" class="empty" name="contact">
+				<span id="emailError"></span>
+			</div>
 
-			<label for="counter">
-				<span>Посетителей в сутки:</span>
-				<input type="number" id="counter" name="Users">
-			</label>
-
-			<label for="email">
-				<span>E-mail для связи:</span>
-				<input type="email" id="email" name="contact">
-			</label>
-
-			<label for="chooseCatalog">
-				<span>Рубрика каталога:</span>
-				<select name="catalog" id="chooseCatalog" value="3">
+			<div>
+				<label for="chooseCatalog">Рубрика каталога:</label>
+				<select name="catalog" id="chooseCatalog">
 					<option value="1">здоровье</option>
 					<option value="2">домашний уют</option>
-					<option value="3">бытовая техника</option>
+					<option value="3" selected="">бытовая техника</option>
 				</select>
-			</label>
+				<span id="catalogError"></span>
+			</div>
 
-			<label>
-				<span>Размещение:</span>
-				<input type="radio">бесплатное
-				<input type="radio">платное
-				<input type="radio">VIP
-			</label>
+			<div>
+				<label>Размещение:</label>
+				<div id="radioWrapper">
+					<input type="radio" name="post" value="1">бесплатное
+					<input type="radio" name="post" value="2">платное
+					<input type="radio" name="post" value="3">VIP
+					<span id="postError"></span>
+				</div>				
+			</div>
 
-			<label for="check">
-				<span>Разрешить отзывы:</span>
+			<div>
+				<label for="check">Разрешить отзывы:</label>
 				<input type="checkbox" id="check" name="review">
-			</label>
+				<span id="checkError"></span>
+			</div>
 
-			<label for="text">
-				<textarea name="description" id="text" cols="50" rows="7"></textarea>
-			</label>
+			<div>
+				<label for="text">Описание сайта:</label>
+				<textarea name="description" id="text" class="empty" cols="50" rows="7"></textarea>
+				<span id="textError"></span>
+			</div>
 
-			<label>
-				<input type="submit">
-			</label>
-
+			<input type="submit" value="Опубликовать" name="submitBtn">
 		</form>
-	</div>	
-	
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+	</div>
+
+	<script>
+		let form = document.forms.Info;
+		let developers = form.elements.developers;
+		let siteName = form.elements.site;
+		let siteUrl = form.elements.URL;
+		let launchDate = form.elements.launchDate;
+		let usersCount = form.elements.users;
+		let email = form.elements.contact;
+		let catalog = form.elements.catalog;
+		let post = form.elements.post;
+		let review = form.elements.review;
+		let description = form.elements.description;
+		let radioDiv = document.getElementById('radioWrapper');
+		
+		developers.addEventListener('blur', validDev);
+		siteName.addEventListener('blur', validName);
+		siteUrl.addEventListener('blur', validUrl);
+		launchDate.addEventListener('blur', validDate);
+		usersCount.addEventListener('blur', validCount);
+		email.addEventListener('blur', validMail);
+		description.addEventListener('blur', validDescription);
+		review.addEventListener('change', validReview);
+		radioDiv.addEventListener('change', validPost)
+		catalog.addEventListener('change', validCatalog);
+		form.addEventListener('submit', validForm);
+
+		function validForm(EO){
+			EO = EO || window.event;
+			let errorCount = 0;
+
+			if(validDescription()){
+				description.focus();
+				errorCount++;
+			}
+
+			if(validReview()){
+				review.focus();
+				errorCount++;
+			}
+
+			if(validPost()){
+				post[0].focus();
+				errorCount++;
+			}
+
+			if(validCatalog()){
+				catalog.focus();
+				errorCount++;
+			}
+
+			if(validMail()){
+				email.focus();
+				errorCount++;
+			}
+
+			if(validCount()){
+				usersCount.focus();
+				errorCount++;
+			}
+
+			if(validDate()){
+				launchDate.focus();
+				errorCount++;
+			}
+
+			if(validUrl()){
+				siteUrl.focus();
+				errorCount++;
+			}
+
+			if(validName()){
+				siteName.focus();
+				errorCount++;
+			}
+
+			if(validDev()){
+				developers.focus();
+				errorCount++;
+			}
+			
+			if(errorCount)
+				EO.preventDefault();
+		}
+
+		function validDev(){
+			let errorCount = 0;
+			if(!developers.value){
+				document.getElementById('devError').textContent = 'Заполните поле!';
+				errorCount++
+			}
+			else
+				document.getElementById('devError').textContent = '';
+			return errorCount;
+		}
+		
+		function validName(){
+			let errorCount = 0;
+			if(!siteName.value){
+				document.getElementById('siteNameError').textContent = 'Заполните поле!';
+				errorCount++
+			}
+			else
+				document.getElementById('siteNameError').textContent = '';
+			return errorCount;
+		}
+
+		function validUrl(){
+			let errorCount = 0;
+			if(!siteUrl.value){
+				document.getElementById('siteURLError').textContent = 'Заполните поле!';
+				errorCount++
+			}
+			else
+				document.getElementById('siteURLError').textContent = '';
+			return errorCount;
+		}
+
+		function validDate(){
+			let errorCount = 0;
+			if(!launchDate.value){
+				document.getElementById('dateError').textContent = 'Заполните поле!';
+				errorCount++;
+			}
+			else
+				document.getElementById('dateError').textContent = '';
+			return errorCount;
+		}
+
+		function validCount(){
+			let errorCount = 0;
+			if(!usersCount.value){
+				document.getElementById('counterError').textContent = 'Заполните поле!';
+				errorCount++;
+			}
+			else
+				document.getElementById('counterError').textContent = '';
+			return errorCount;
+		}
+
+		function validMail(){
+			let errorCount = 0;
+			if(!email.value){
+				document.getElementById('emailError').textContent = 'Заполните поле!';
+				errorCount++;
+			}
+			else
+				document.getElementById('emailError').textContent = '';
+			return errorCount;
+		}
+
+		function validDescription(){
+			let errorCount = 0;
+			if(!description.value){
+				document.getElementById('textError').textContent = 'Заполните поле!';
+				errorCount++;
+			}
+			else
+				document.getElementById('textError').textContent = '';
+			return errorCount;
+		}
+
+		function validReview(){
+			let errorCount = 0;
+			if(!review.checked){
+				document.getElementById('checkError').textContent = 'Заполните поле!';
+				errorCount++;
+			}
+			else
+				document.getElementById('checkError').textContent = '';
+			return errorCount;			
+		}
+
+		function validPost(){
+			let errorCount = 0;
+			if(post.value === ''){
+				document.getElementById('postError').textContent = 'Заполните поле!';
+				errorCount++;
+			}
+			else
+				document.getElementById('postError').textContent = '';
+			return errorCount;
+		}
+
+		function validCatalog(){
+			let errorCount = 0;
+			if(catalog.value === '3'){
+				document.getElementById('catalogError').textContent = 'Заполните поле!';
+				errorCount++;
+			}
+			else
+				document.getElementById('catalogError').textContent = '';
+			return errorCount;
+		}
+	</script>	
 </body>
 </html>

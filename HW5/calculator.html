@@ -9,13 +9,31 @@
 	<script>
 		"use strict";
 
-		let degeneration=prompt('Введите выражение: ');
+		let degeneration = "2*(-3+1)";
+		console.log(degeneration.split(''));
+		let degenerationArr = degeneration.split('');
+		let firstBracket;
+		let secondBracket;
+
+		for(let i of degenerationArr)
+			if(isNaN(i)){
+				if(i === '('){
+					firstBracket = degenerationArr.indexOf(i)+1;
+				}
+
+				if(i === ')'){
+					secondBracket = degenerationArr.indexOf(i); //часть выражения в скобках
+					var test = degenerationArr.slice(firstBracket, secondBracket);
+				}
+			}
+		
 
 		function calculator(degeneration){
 			
 		}
-
 	</script>
+
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 
 </body>
 </html>

@@ -71,6 +71,8 @@ function time(){
 		minuteHand.style.transform = 'rotate('+minutesRatio*360+'deg)';
 		hourHand.style.transform = 'rotate('+hoursRatio*360+'deg)';
 	}
+
+	updateTime();
 }
 
 function formatDateTime(dt) {

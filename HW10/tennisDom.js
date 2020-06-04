@@ -1,5 +1,6 @@
 var gameBoardWidth = 700; 		// ширина всего поля
 var gameBoardHeight = 550;		// высота всего поля
+var gameStart = false;
 
 // высота счета
 var score = {
@@ -111,32 +112,73 @@ var game = {
 			ballH.speed += 0.5;
 		}
 	},
+	movePlayers : function(){
+		for ( var move in keys )
+		{
+			if (!keys.hasOwnProperty(move))
+				continue;
+
+			if ( move == 16 )
+			{
+				// правый вверх
+				if ( players[0].posY <= score.height )
+					continue;
+				players[0].movePlayerTop();
+			}
+
+			if ( move == 17 )
+			{
+				// правый вниз
+				if ( players[0].posY >= gameBoardHeight - players[0].height )
+					continue;
+				players[0].movePlayerBottom();
+			}
+
+			if ( move == 38 )
+			{
+				// левый вверх
+				if ( players[1].posY <= score.height )
+					continue;
+				players[1].movePlayerTop();
+			}
+
+			if ( move == 40 )
+			{
+				// левый вниз
+				if ( players[1].posY >= gameBoardHeight - players[1].height )
+					continue;
+				players[1].movePlayerBottom();
+			}
+		}
+	},
 	start : function()											// старт игры
 	{
-		var gameTimer = setTimeout(game.start, 1000 / 60);
+		if( gameStart ){
 
-		ballH.moveBall();
+			ballH.moveBall();
 
-		players.forEach( (player) => {
-			game.collision(player, ballH);
-		});
+			game.movePlayers();
 
-		if ( ballH.posX + ballH.width > field.width )
-		{
-			ballDiv.style.left = gameBoardWidth - ballH.width + 'px';
-			players[0].score++;
-			scoreDiv.textContent = players[0].score + '|' + players[1].score;
-			ballH.resetBall();
-			clearTimeout(gameTimer);
-		} else if ( ballH.posX < 0 )
-		{
-			ballDiv.style.left = 0 + 'px';
-			players[1].score++;
-			scoreDiv.textContent = players[0].score + '|' + players[1].score;
-			ballH.resetBall();
-			clearTimeout(gameTimer);
+			players.forEach( (player) => {
+				game.collision(player, ballH);
+			});
+
+			if ( ballH.posX + ballH.width > field.width )
+			{
+				ballDiv.style.left = gameBoardWidth - ballH.width + 'px';
+				players[0].score++;
+				scoreDiv.textContent = players[0].score + '|' + players[1].score;
+				ballH.resetBall();
+				gameStart = false;
+			} else if ( ballH.posX < 0 )
+			{
+				ballDiv.style.left = 0 + 'px';
+				players[1].score++;
+				scoreDiv.textContent = players[0].score + '|' + players[1].score;
+				ballH.resetBall();
+				gameStart = false;
+			}
 		}
-
 	}
 }
 
@@ -148,7 +190,7 @@ gameDiv.style.height = gameBoardHeight + 'px';
 var startBtn = document.createElement('button');
 startBtn.style.cssText = 'position: absolute; top: 13px; width: 70px; background-color: #d9d9d3';
 startBtn.textContent = 'Старт!';
-startBtn.onclick = game.start; 								//запуск игры
+startBtn.onclick = play; 								//запуск игры
 gameDiv.appendChild(startBtn);	
 
 var scoreDiv = document.createElement('div');
@@ -186,7 +228,7 @@ secondPlayerDiv.style.top = players[1].posY + 'px';
 secondPlayerDiv.style.left = players[1].posX + 'px';
 gameDiv.appendChild(secondPlayerDiv);
 
-setInterval(movePlayers, 1000 / 60);      // проверяет нажатие клавишь и двигает платформы
+setInterval(game.start, 1000 / 60);      // проверяет нажатие клавишь и двигает платформы
 
 var keys = {} // Хранит номера нажатых клавиш
 
@@ -200,44 +242,9 @@ document.addEventListener('keyup', function(e) {
 	delete keys[e.keyCode];
 })
 
-function movePlayers(){
-	for ( var move in keys )
-	{
-		if (!keys.hasOwnProperty(move))
-			continue;
-
-		if ( move == 16 )
-		{
-			// правый вверх
-			if ( players[0].posY <= score.height )
-				continue;
-			players[0].movePlayerTop();
-		}
-
-		if ( move == 17 )
-		{
-			// правый вниз
-			if ( players[0].posY >= gameBoardHeight - players[0].height )
-				continue;
-			players[0].movePlayerBottom();
-		}
-
-		if ( move == 38 )
-		{
-			// левый вверх
-			if ( players[1].posY <= score.height )
-				continue;
-			players[1].movePlayerTop();
-		}
-
-		if ( move == 40 )
-		{
-			// левый вниз
-			if ( players[1].posY >= gameBoardHeight - players[1].height )
-				continue;
-			players[1].movePlayerBottom();
-		}
-	}
+function play()
+{
+	gameStart = true;
 }
 
 function randomNum(arrayNum)			// получение случайного числа и массива чисел

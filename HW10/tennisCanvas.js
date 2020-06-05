@@ -59,7 +59,7 @@ class Tennis
 
 		this.start = () => {
 			this.update();
-			requestAnimationFrame(this.start);	// Через requestAnimationFrame
+			//requestAnimationFrame(this.start);	// Через requestAnimationFrame
 		}
 	}
 
@@ -146,8 +146,8 @@ class Tennis
 		this.ball.posX += this.ball.velocityX;
 		this.ball.posY += this.ball.velocityY;
 
-		if ( this.ball.posY + this.ball.radius > this.canv.height ||
-		 this.ball.posY < 0 )
+		if ( this.ball.posY + this.ball.radius >= this.canv.height ||
+		 this.ball.posY - this.ball.radius <= 0 )
 		{
 			this.ball.velocityY = -this.ball.velocityY;
 		}
@@ -228,8 +228,8 @@ class Tennis
 
 const game = new Tennis(canv);
 game.draw();
-game.start();  							// Через requestAnimationFrame		
-// setInterval(game.start,1000/60);		// Через setInterval
+// game.start();  							// Через requestAnimationFrame		
+ setInterval(game.start,1000/50);		// Через setInterval
 
 var scoreDiv = document.getElementById('score');
 scoreDiv.textContent = '0|0'

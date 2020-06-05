@@ -59,7 +59,7 @@ class Tennis
 
 		this.start = () => {
 			this.update();
-			//requestAnimationFrame(this.start);	// Через requestAnimationFrame
+			requestAnimationFrame(this.start);	// Через requestAnimationFrame
 		}
 	}
 
@@ -228,8 +228,8 @@ class Tennis
 
 const game = new Tennis(canv);
 game.draw();
-// game.start();  							// Через requestAnimationFrame		
- setInterval(game.start,1000/50);		// Через setInterval
+game.start();  							// Через requestAnimationFrame		
+// setInterval(game.start,1000/50);		// Через setInterval
 
 var scoreDiv = document.getElementById('score');
 scoreDiv.textContent = '0|0'

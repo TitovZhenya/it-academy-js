@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tennis Canvas</title>
+	<style>
+		#game{
+			position: relative;
+			margin: 0 auto;
+			width: 700px;
+			height: 550px;
+		}
+
+		#startBtn{
+			position: absolute;
+			top: 13px;
+			width: 70px;
+			background-color: #d9d9d3;
+		}
+
+		#score{
+			font: 40px sans-serif;
+			text-align: center;
+			height: 50px;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="game">
+		<button id="startBtn">Старт</button>
+		<div id="score"></div>
+		<canvas id="field">Your browser is not supported.</canvas>	
+	</div>
+
+	<script type="text/javascript" src="tennisCanvas.js"></script>
+</body>
+</html>

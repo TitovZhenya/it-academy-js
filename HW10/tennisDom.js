@@ -1,3 +1,5 @@
+"use strict"
+
 var gameBoardWidth = 700; 		// ширина всего поля
 var gameBoardHeight = 550;		// высота всего поля
 var gameStart = false;
@@ -107,7 +109,7 @@ var game = {
 			let direction = ( ballLeft < field.width / 2 ) ? 1 : -1;
 
 			ballH.velocityX = direction * ballH.speed * Math.cos(angle);
-			ballH.velocitY = direction * ballH.speed * Math.sin(angle);
+			ballH.velocityY = direction * ballH.speed * Math.sin(angle);
 
 			ballH.speed += 0.5;
 		}
@@ -179,6 +181,8 @@ var game = {
 				gameStart = false;
 			}
 		}
+
+		// requestAnimationFrame(game.start)
 	}
 }
 
@@ -228,7 +232,8 @@ secondPlayerDiv.style.top = players[1].posY + 'px';
 secondPlayerDiv.style.left = players[1].posX + 'px';
 gameDiv.appendChild(secondPlayerDiv);
 
-setInterval(game.start, 1000 / 60);      // проверяет нажатие клавишь и двигает платформы
+// requestAnimationFrame(game.start);
+setInterval(game.start, 1000 / 60);
 
 var keys = {} // Хранит номера нажатых клавиш
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Clock Canvas</title>
+</head>
+<body>
+	
+	<div id="canvas-clock1">
+		<button id="stop"></button>
+		<button id="start"></button>
+		<span id="location"></span>
+		<canvas id="canvas1"></canvas>
+	</div>
+
+	
+	<div id="canvas-clock2">
+		<button id="stop"></button>
+		<button id="start"></button>
+		<span id="location"></span>
+		<canvas id="canvas2"></canvas>
+	</div>
+	
+
+	<script type="text/javascript" src="clock.js"></script>
+	<script type="text/javascript" src="ClockViewCanvas.js"></script>
+	<script>
+		var canv = document.getElementById('canvas1');
+		var clockModelCanvas1 = new Clock(300);
+		var clockViewCanvas1 = new ClockViewModel(canv);
+
+		clockModelCanvas1.start(clockViewCanvas1);
+		clockViewCanvas1.start(clockModelCanvas1);
+		clockModelCanvas1.updateView();
+
+	</script>
+
+</body>
+</html>

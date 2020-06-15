@@ -45,6 +45,7 @@
 				this.storage = {};
 				this.type = type;
 				this.currentStorage = localStorage.getItem(type);
+				this.refreshStorage();
 			}
 
 			refreshStorage(){
@@ -79,8 +80,6 @@
 			
 		let drinkStorage = new Storage('drinks');
 		let foodStorage = new Storage('food');
-		drinkStorage.refreshStorage();
-		foodStorage.refreshStorage();
 
 		function addDrinkInfo(){
 			let drink = prompt('Введите название напитка: ');

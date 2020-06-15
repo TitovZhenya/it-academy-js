@@ -1,4 +1,4 @@
-class ClockViewModel
+class ClockView
 {
 	constructor(canv)
 	{
@@ -11,6 +11,11 @@ class ClockViewModel
 	start(model)
 	{
 		this.myModel = model;
+		if ( this.myModel )
+		{
+			this.canv.width = this.myModel.clockSize;
+			this.canv.height = this.myModel.clockSize;
+		}
 	}
 
 	clear()

@@ -7,16 +7,20 @@
 <body>
 	
 	<div id="canvas-clock1">
-		<button id="stop"></button>
-		<button id="start"></button>
+		<div class="button-wrapper">
+			<button id="stop"></button>
+			<button id="start"></button>
+		</div>
 		<span id="location"></span>
 		<canvas id="canvas1"></canvas>
 	</div>
 
 	
 	<div id="canvas-clock2">
-		<button id="stop"></button>
-		<button id="start"></button>
+		<div class="button-wrapper">
+			<button id="stop"></button>
+			<button id="start"></button>
+		</div>
 		<span id="location"></span>
 		<canvas id="canvas2"></canvas>
 	</div>
@@ -25,13 +29,21 @@
 	<script type="text/javascript" src="clock.js"></script>
 	<script type="text/javascript" src="ClockViewCanvas.js"></script>
 	<script>
-		var canv = document.getElementById('canvas1');
+		var canv1 = document.getElementById('canvas1');
 		var clockModelCanvas1 = new Clock(300);
-		var clockViewCanvas1 = new ClockViewModel(canv);
+		var clockViewCanvas1 = new ClockView(canv1);
 
 		clockModelCanvas1.start(clockViewCanvas1);
 		clockViewCanvas1.start(clockModelCanvas1);
 		clockModelCanvas1.updateView();
+
+		var canv2 = document.getElementById('canvas2');
+		var clockModelCanvas2 = new Clock(300);
+		var clockViewCanvas2 = new ClockView(canv2);
+
+		clockModelCanvas2.start(clockViewCanvas2);
+		clockViewCanvas2.start(clockModelCanvas2);
+		clockModelCanvas2.updateView();
 
 	</script>
 
